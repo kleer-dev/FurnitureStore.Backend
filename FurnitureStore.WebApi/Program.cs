@@ -1,3 +1,7 @@
+using System.Reflection;
+using FurnitureStore.Application;
+using FurnitureStore.Application.Common.Mappings;
+using FurnitureStore.Application.Interfaces;
 using FurnitureStore.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +30,15 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
         throw;
     }
 }
+
+builder.Services.AddAutoMapper(config =>
+{
+    config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
+    config.AddProfile(new AssemblyMappingProfile(typeof(IFurnitureStoreDbContext).Assembly));
+});
+
+builder.Services.AddApplication();
+builder.Services.AddPersistence(builder.Configuration);
 
 
 var app = builder.Build();
