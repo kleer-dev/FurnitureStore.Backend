@@ -3,6 +3,7 @@ using FurnitureStore.Application;
 using FurnitureStore.Application.Common.Mappings;
 using FurnitureStore.Application.Interfaces;
 using FurnitureStore.Persistence;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,16 @@ builder.Services.AddAutoMapper(config =>
 
 builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowAnyOrigin();
+    });
+})
 
 
 var app = builder.Build();
