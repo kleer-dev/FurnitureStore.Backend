@@ -1,6 +1,9 @@
-﻿namespace FurnitureStore.Application.Common.Mappings;
+﻿using AutoMapper;
 
-public interface IMapWith
+namespace FurnitureStore.Application.Common.Mappings;
+
+public interface IMapWith<T>
 {
-
+    void Mapping(Profile profile) =>
+        profile.CreateMap(typeof(T), GetType());
 }
