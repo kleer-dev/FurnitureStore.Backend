@@ -9,13 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{690151F1-C23B-4564-87AA-CA0A231632C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FurnitureStore.Application", "FurnitureStore.Application\FurnitureStore.Application.csproj", "{A21BCABA-0F05-4951-8D27-7CD52E54A153}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FurnitureStore.Application", "FurnitureStore.Application\FurnitureStore.Application.csproj", "{A21BCABA-0F05-4951-8D27-7CD52E54A153}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FurnitureStore.Domain", "FurnitureStore.Domain\FurnitureStore.Domain.csproj", "{77C4F240-66B6-46F4-836D-892D1DDB6BCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FurnitureStore.Domain", "FurnitureStore.Domain\FurnitureStore.Domain.csproj", "{77C4F240-66B6-46F4-836D-892D1DDB6BCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FurnitureStore.Persistence", "FurnitureStore.Persistence\FurnitureStore.Persistence.csproj", "{C13A37E3-67F0-4D3A-A9B7-CC7FE733C734}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FurnitureStore.Persistence", "FurnitureStore.Persistence\FurnitureStore.Persistence.csproj", "{C13A37E3-67F0-4D3A-A9B7-CC7FE733C734}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FurnitureStore.WebApi", "FurnitureStore.WebApi\FurnitureStore.WebApi.csproj", "{EB64DE4C-A372-4EA8-89F9-E5E391DC375E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FurnitureStore.WebApi", "FurnitureStore.WebApi\FurnitureStore.WebApi.csproj", "{EB64DE4C-A372-4EA8-89F9-E5E391DC375E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FurnitureStore.Auth", "FurnitureStore.Auth\FurnitureStore.Auth.csproj", "{59ECE7D3-FDF9-45DB-BA6D-343CA67A54DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{EB64DE4C-A372-4EA8-89F9-E5E391DC375E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB64DE4C-A372-4EA8-89F9-E5E391DC375E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB64DE4C-A372-4EA8-89F9-E5E391DC375E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59ECE7D3-FDF9-45DB-BA6D-343CA67A54DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59ECE7D3-FDF9-45DB-BA6D-343CA67A54DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59ECE7D3-FDF9-45DB-BA6D-343CA67A54DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59ECE7D3-FDF9-45DB-BA6D-343CA67A54DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{77C4F240-66B6-46F4-836D-892D1DDB6BCA} = {1B94B0B7-D0E9-4022-8145-2B06142068F9}
 		{C13A37E3-67F0-4D3A-A9B7-CC7FE733C734} = {F0318FE2-4137-471C-8AFD-4A4B12EAA2CC}
 		{EB64DE4C-A372-4EA8-89F9-E5E391DC375E} = {690151F1-C23B-4564-87AA-CA0A231632C3}
+		{59ECE7D3-FDF9-45DB-BA6D-343CA67A54DE} = {F0318FE2-4137-471C-8AFD-4A4B12EAA2CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F391433-FB7E-4243-9077-9F0E54CE4C49}

@@ -1,13 +1,15 @@
 ﻿using FurnitureStore.Application.Interfaces;
 using FurnitureStore.Domain;
 using FurnitureStore.Persistence.EntityTypeConfigurations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FurnitureStore.Persistence;
 
-public class FurnitureStoreDbContext : DbContext, IFurnitureStoreDbContext
+public class FurnitureStoreDbContext : IdentityDbContext<User, IdentityRole<long>, long>,
+    IFurnitureStoreDbContext
 {
-    public DbSet<User> Users { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<FurnitureType> FurnitureTypes { get; set; }
     public DbSet<Furniture> Furnitures { get; set; }

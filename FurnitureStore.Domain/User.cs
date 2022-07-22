@@ -1,6 +1,8 @@
-﻿namespace FurnitureStore.Domain;
+﻿using Microsoft.AspNetCore.Identity;
 
-public class User
+namespace FurnitureStore.Domain;
+
+public class User : IdentityUser<long>
 {
     public decimal Balance { get; set; }
 

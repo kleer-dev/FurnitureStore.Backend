@@ -11,5 +11,5 @@ public interface IFurnitureStoreDbContext
     DbSet<Furniture> Furnitures { get; set; }
     DbSet<Company> Companies { get; set; }
 
-    Task<int> SaveChangesAsync(CancellationToken);
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
