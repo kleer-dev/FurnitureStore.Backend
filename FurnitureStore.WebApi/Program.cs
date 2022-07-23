@@ -6,82 +6,102 @@ using FurnitureStore.Auth;
 using FurnitureStore.Domain;
 using FurnitureStore.Persistence;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
+using NLog;
+using NLog.Web;
 
-var builder = WebApplication.CreateBuilder(args);
+var logger = NLog.LogManager.Setup()
+    .LoadConfigurationFromAppSettings()
+    .GetCurrentClassLogger();
 
-// Add services to the container.
+logger.Debug("Init Main");
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddAutoMapper(config =>
+try
 {
-    config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
-    config.AddProfile(new AssemblyMappingProfile(typeof(IFurnitureStoreDbContext).Assembly));
-});
+    var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddApplication();
-builder.Services.AddPersistence(builder.Configuration);
-builder.Services.AddSecureAuth(builder.Configuration);
+    builder.Services.AddControllers();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+
+    builder.Services.AddAutoMapper(config =>
     {
-        policy.AllowAnyHeader();
-        policy.AllowAnyMethod();
-        policy.AllowAnyOrigin();
+        config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
+        config.AddProfile(new AssemblyMappingProfile(typeof(IFurnitureStoreDbContext).Assembly));
     });
-});
 
-builder.Services.AddIdentity<User, IdentityRole<long>>(options =>
-{
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredLength = 8;
-    options.User.RequireUniqueEmail = true;
-    options.SignIn.RequireConfirmedEmail = false;
-}).AddEntityFrameworkStores<FurnitureStoreDbContext>();
+    builder.Services.AddApplication();
+    builder.Services.AddPersistence(builder.Configuration);
+    builder.Services.AddSecureAuth(builder.Configuration);
 
-var app = builder.Build();
-
-using (var scope = builder.Services.BuildServiceProvider().CreateScope())
-{
-    var serviceProvider = scope.ServiceProvider;
-
-    try
+    builder.Services.AddCors(options =>
     {
-        var context = serviceProvider
-            .GetRequiredService<FurnitureStoreDbContext>();
+        options.AddPolicy("AllowAll", policy =>
+        {
+            policy.AllowAnyHeader();
+            policy.AllowAnyMethod();
+            policy.AllowAnyOrigin();
+        });
+    });
 
-        DbInitializer.Initialize(context);
-    }
-    catch (Exception)
+    builder.Services.AddIdentity<User, IdentityRole<long>>(options =>
     {
+        options.Password.RequireDigit = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequiredLength = 8;
+        options.User.RequireUniqueEmail = true;
+        options.SignIn.RequireConfirmedEmail = false;
+    }).AddEntityFrameworkStores<FurnitureStoreDbContext>();
 
-        throw;
+    builder.Logging.ClearProviders();
+    builder.Host.UseNLog();
+
+    var app = builder.Build();
+
+    using (var scope = builder.Services.BuildServiceProvider().CreateScope())
+    {
+        var serviceProvider = scope.ServiceProvider;
+
+        try
+        {
+            var context = serviceProvider
+                .GetRequiredService<FurnitureStoreDbContext>();
+
+            DbInitializer.Initialize(context);
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
     }
-}
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseHttpsRedirection();
+
+    app.UseCors("AllowAll");
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    app.Run();
+
+}
+catch (Exception e)
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    logger.Error(e, "Stopped program because of exception");
+    throw;
 }
-
-app.UseHttpsRedirection();
-
-app.UseCors("AllowAll");
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+finally
+{
+    LogManager.Shutdown();
+}
