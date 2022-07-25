@@ -1,4 +1,5 @@
 ﻿using FurnitureStore.Application.Interfaces;
+using FurnitureStore.Auth.Exceptions;
 using FurnitureStore.Auth.Interfaces;
 using FurnitureStore.Domain;
 using MediatR;
@@ -29,14 +30,12 @@ public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, U
     {
         if (await _context.Users.AnyAsync(u => u.Email == request.Email, cancellationToken))
         {
-            //throw new UserCreateException(new { Email = "Email already exist" });
-            throw new Exception("Email already exist");
+            throw new UserRegistrationException("Email already exist");
         }
 
         if (await _context.Users.AnyAsync(u => u.PhoneNumber == request.PhoneNumber, cancellationToken))
         {
-            //throw new UserCreateException(new { Email = "Email already exist" });
-            throw new Exception("Phone number already exist");
+            throw new UserRegistrationException("Phone number already exist");
         }
 
         var user = new User()
@@ -50,8 +49,7 @@ public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, U
 
         if (!result.Succeeded)
         {
-            //throw new UserCreateException(result.Errors);
-            throw new Exception("Registration error");
+            throw new UserRegistrationException(result.Errors.ToList());
         }
 
         return new UserDto()

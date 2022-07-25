@@ -5,6 +5,7 @@ using FurnitureStore.Application.Interfaces;
 using FurnitureStore.Auth;
 using FurnitureStore.Domain;
 using FurnitureStore.Persistence;
+using FurnitureStore.WebApi.Middlewares;
 using Microsoft.AspNetCore.Identity;
 using NLog;
 using NLog.Web;
@@ -83,6 +84,8 @@ try
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+    app.UseMiddleware<ExceptionHandlingMiddleware>();
 
     app.UseHttpsRedirection();
 

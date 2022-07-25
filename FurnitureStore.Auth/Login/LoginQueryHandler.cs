@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using FurnitureStore.Application.Common.Exceptions;
 using FurnitureStore.Auth.Interfaces;
 using FurnitureStore.Domain;
 using MediatR;
@@ -27,8 +28,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, UserDto>
 
         if (user == null)
         {
-            //throw new NotFoundException(nameof(Domain.User), request.Email);
-            throw new Exception("User not found");
+            throw new NotFoundException(nameof(User), request.Email);
         }
 
         var result = await _signInManager
