@@ -11,13 +11,13 @@ public class UserRegistrationException : Exception
         Errors = new List<IdentityError>();
     }
 
-    public UserRegistrationException(IEnumerable<IdentityError> errors)
+    public UserRegistrationException(IList<IdentityError> errors)
         : base($"{CreateErrorMessage(errors)}")
     {
         Errors = errors;
     }
 
-    public UserRegistrationException(string message, IEnumerable<IdentityError> errors)
+    public UserRegistrationException(string message, IList<IdentityError> errors)
         : base($"{message} {CreateErrorMessage(errors)}")
     {
         Errors = errors;

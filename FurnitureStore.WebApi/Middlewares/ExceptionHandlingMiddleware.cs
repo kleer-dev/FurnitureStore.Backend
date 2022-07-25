@@ -1,5 +1,8 @@
 ﻿using System.Net;
 using System.Text.Json;
+using FluentValidation;
+using FurnitureStore.Application.Common.Exceptions;
+using FurnitureStore.Auth.Exceptions;
 
 namespace FurnitureStore.WebApi.Middlewares;
 
@@ -20,6 +23,21 @@ public class ExceptionHandlingMiddleware
         try
         {
             await _next(httpContext);
+        }
+        catch (NotFoundException e)
+        {
+            _logger.LogError(e, $"Error - {e}");
+            await HandleExceptionAsync(httpContext, e, HttpStatusCode.NotFound);
+        }
+        catch (UserRegistrationException e)
+        {
+            _logger.LogError(e, $"Error - {e}");
+            await HandleExceptionAsync(httpContext, e, HttpStatusCode.BadRequest);
+        }
+        catch (ValidationException e)
+        {
+            _logger.LogError(e, $"Error - {e}");
+            await HandleExceptionAsync(httpContext, e, HttpStatusCode.BadRequest);
         }
         catch (Exception e)
         {
