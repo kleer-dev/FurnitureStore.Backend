@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using FurnitureStore.Application.CommandsQueries.Company.Commands.Create;
+using FurnitureStore.WebApi.Dto.Company;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
 
@@ -6,5 +9,19 @@ namespace FurnitureStore.WebApi.Controllers;
 [Route("api/company")]
 public class CompanyController : BaseController
 {
+    private readonly IMapper _mapper;
 
+    public CompanyController(IMapper mapper)
+    {
+        _mapper = mapper;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<long>> Create([FromBody] CreateCompanyDto dto)
+    {
+        var command = _mapper.Map<CreateCompanyCommand>(dto);
+        var companyId = await Mediator.Send(command);
+
+        return Created("api/company", companyId);
+    }
 }

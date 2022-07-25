@@ -11,7 +11,7 @@ public class CreateCompanyDto : IMapWith<CreateCompanyCommand>
     public void Mapping(Profile profile)
     {
         profile.CreateMap<CreateCompanyDto, CreateCompanyCommand>()
-            .ForMember(c => c.Name,
+            .ForMember(c => c.Name, 
                 o => o.MapFrom(d => d.Name));
     }
 }
