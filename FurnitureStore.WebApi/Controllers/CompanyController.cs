@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FurnitureStore.Application.CommandsQueries.Company.Commands.Create;
+using FurnitureStore.Application.CommandsQueries.Company.Commands.Delete;
 using FurnitureStore.WebApi.Dto.Company;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,5 +24,14 @@ public class CompanyController : BaseController
         var companyId = await Mediator.Send(command);
 
         return Created("api/company", companyId);
+    }
+
+    [HttpDelete("{id:long}")]
+    public async Task<ActionResult> Delete(long id)
+    {
+        var command = new DeleteCompanyCommand { Id = id };
+        await Mediator.Send(command);
+
+        return NoContent();
     }
 }
