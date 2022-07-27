@@ -39,6 +39,11 @@ public class ExceptionHandlingMiddleware
             _logger.LogError(e, $"Error - {e}");
             await HandleExceptionAsync(httpContext, e, HttpStatusCode.BadRequest);
         }
+        catch (RecordIsExistException e)
+        {
+            _logger.LogError(e, $"Error - {e}");
+            await HandleExceptionAsync(httpContext, e, HttpStatusCode.UnprocessableEntity);
+        }
         catch (Exception e)
         {
             _logger.LogError(e, $"Error - {e}");
