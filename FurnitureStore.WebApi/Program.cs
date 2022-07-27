@@ -7,6 +7,7 @@ using FurnitureStore.Domain;
 using FurnitureStore.Persistence;
 using FurnitureStore.WebApi.Middlewares;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using NLog;
 using NLog.Web;
 
@@ -20,7 +21,11 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    builder.Services.AddControllers();
+    builder.Services.AddControllers()
+        .AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        });
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
