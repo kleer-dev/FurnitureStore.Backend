@@ -17,6 +17,12 @@ public class UpdateCompanyCommandHandler : IRequestHandler<UpdateCompanyCommand,
     public async Task<Unit> Handle(UpdateCompanyCommand request,
         CancellationToken cancellationToken)
     {
+        var isCompanyExist = await _dbContext.Companies
+            .AnyAsync(c => c.Name == request.Name && c.Id != request.Id, cancellationToken);
+
+        if (isCompanyExist)
+            throw new RecordIsExistException(request.Name);
+
         var company = await _dbContext.Companies
             .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
 
