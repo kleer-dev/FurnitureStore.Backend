@@ -11,6 +11,7 @@ public class FurnitureTypeConfiguration : IEntityTypeConfiguration<FurnitureType
         builder.HasKey(fType => fType.Id);
         builder.HasIndex(fType => fType.Id).IsUnique();
 
+        builder.HasIndex(fType => fType.Name).IsUnique();
         builder.Property(fType => fType.Name)
             .IsRequired()
             .HasMaxLength(255);
