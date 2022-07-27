@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FurnitureStore.Application.CommandsQueries.Company.Commands.Create;
 using FurnitureStore.Application.CommandsQueries.Company.Commands.Delete;
+using FurnitureStore.Application.CommandsQueries.Company.Queries.Get;
 using FurnitureStore.Application.CommandsQueries.Company.Queries.GetList;
 using FurnitureStore.WebApi.Dto.Company;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,15 @@ public class CompanyController : BaseController
     public CompanyController(IMapper mapper)
     {
         _mapper = mapper;
+    }
+
+    [HttpGet("{id:long}")]
+    public async Task<ActionResult<CompanyVm>> Get(long id)
+    {
+        var query = new GetCompanyQuery() { Id = id };
+        var company = await Mediator.Send(query);
+
+        return Ok(company);
     }
 
     [HttpGet]
