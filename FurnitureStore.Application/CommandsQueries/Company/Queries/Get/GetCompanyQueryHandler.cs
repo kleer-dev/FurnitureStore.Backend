@@ -26,7 +26,7 @@ public class GetCompanyQueryHandler : IRequestHandler<GetCompanyQuery, CompanyVm
             .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
 
         if (company == null)
-            throw new NotFoundException(nameof(Domain.Company), company);
+            throw new NotFoundException(nameof(Domain.Company), request.Id);
 
         return _mapper.Map<CompanyVm>(company);
     }
