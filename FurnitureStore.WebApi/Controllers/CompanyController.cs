@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FurnitureStore.Application.CommandsQueries.Company.Commands.Create;
 using FurnitureStore.Application.CommandsQueries.Company.Commands.Delete;
+using FurnitureStore.Application.CommandsQueries.Company.Commands.Update;
 using FurnitureStore.Application.CommandsQueries.Company.Queries.Get;
 using FurnitureStore.Application.CommandsQueries.Company.Queries.GetList;
 using FurnitureStore.WebApi.Dto.Company;
@@ -50,6 +51,17 @@ public class CompanyController : BaseController
     public async Task<ActionResult> Delete(long id)
     {
         var command = new DeleteCompanyCommand { Id = id };
+        await Mediator.Send(command);
+
+        return NoContent();
+    }
+
+    [HttpPut("{id:long}")]
+    public async Task<ActionResult> Update(long id, [FromBody] UpdateCompanyDto dto)
+    {
+        var command = _mapper.Map<UpdateCompanyCommand>(dto);
+        command.Id = id;
+
         await Mediator.Send(command);
 
         return NoContent();
