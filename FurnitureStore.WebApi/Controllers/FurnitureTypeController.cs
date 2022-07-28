@@ -2,6 +2,7 @@
 using FurnitureStore.Application.CommandsQueries.FurnitureType.Commands.Create;
 using FurnitureStore.Application.CommandsQueries.FurnitureType.Commands.Delete;
 using FurnitureStore.Application.CommandsQueries.FurnitureType.Commands.Update;
+using FurnitureStore.Application.CommandsQueries.FurnitureType.Queries.Get;
 using FurnitureStore.WebApi.Dto.FurnitureType;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,15 @@ public class FurnitureTypeController : BaseController
     public FurnitureTypeController(IMapper mapper)
     {
         _mapper = mapper;
+    }
+
+    [HttpGet("{id:long}")]
+    public async Task<ActionResult<FurnitureTypeVm>> Get(long id)
+    {
+        var query = new GetFurnitureTypeQuery() { Id = id };
+        var furnitureType = await Mediator.Send(query);
+
+        return Ok(furnitureType);
     }
 
     [HttpPost]
