@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FurnitureStore.Application.CommandsQueries.FurnitureType.Commands.Create;
 using FurnitureStore.Application.CommandsQueries.FurnitureType.Commands.Delete;
+using FurnitureStore.Application.CommandsQueries.FurnitureType.Commands.Update;
 using FurnitureStore.WebApi.Dto.FurnitureType;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +31,17 @@ public class FurnitureTypeController : BaseController
     public async Task<ActionResult> Delete(long id)
     {
         var command = new DeleteFurnitureTypeCommand() { Id = id };
+        await Mediator.Send(command);
+
+        return NoContent();
+    }
+
+    [HttpPut("{id:long}")]
+    public async Task<ActionResult> Update(long id, [FromBody] UpdateFurnitureTypeDto dto)
+    {
+        var command = _mapper.Map<UpdateFurnitureTypeCommand>(dto);
+        command.Id = id;
+
         await Mediator.Send(command);
 
         return NoContent();
