@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FurnitureStore.Application.CommandsQueries.FurnitureType.Commands.Create;
+using FurnitureStore.Application.CommandsQueries.FurnitureType.Commands.Delete;
 using FurnitureStore.WebApi.Dto.FurnitureType;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,5 +24,14 @@ public class FurnitureTypeController : BaseController
         var furnitureTypeId = await Mediator.Send(command);
 
         return Created("api/furniture-types", furnitureTypeId);
+    }
+
+    [HttpDelete("{id:long}")]
+    public async Task<ActionResult> Delete(long id)
+    {
+        var command = new DeleteFurnitureTypeCommand() { Id = id };
+        await Mediator.Send(command);
+
+        return NoContent();
     }
 }
