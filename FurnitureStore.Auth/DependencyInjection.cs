@@ -26,6 +26,7 @@ public static class DependencyInjection
                     ValidateIssuerSigningKey = true,
                     ValidateAudience = false,
                     ValidateIssuer = false,
+                    ValidateLifetime = true,
                     IssuerSigningKey = key,
                     ValidIssuer = configuration["JWT:Issuer"],
                     ValidAudience = configuration["JWT:Audience"]

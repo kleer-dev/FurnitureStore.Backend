@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FurnitureStore.WebApi.Controllers;
 
 [ApiController]
-[Route("api/company")]
+[Route("api/companies")]
 public class CompanyController : BaseController
 {
     private readonly IMapper _mapper;
