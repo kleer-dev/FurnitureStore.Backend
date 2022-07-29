@@ -17,4 +17,8 @@
     <ProjectReference Include="..\FurnitureStore.Domain\FurnitureStore.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CommandsQueries\Order\Commands\" />
+  </ItemGroup>
+
 </Project>

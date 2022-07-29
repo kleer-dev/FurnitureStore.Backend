@@ -4,13 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
 
-public class BaseController : ControllerBase
+public abstract class BaseController : ControllerBase
 {
-    private IMediator _mediator;
-    protected IMediator Mediator =>
-        _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+    private IMediator? _mediator;
 
-    internal Guid UserId => !User.Identity.IsAuthenticated
-        ? Guid.Empty
-        : Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+    protected IMediator Mediator =>
+        _mediator ?? HttpContext.RequestServices.GetService<IMediator>()!;
+
+    internal long? UserId => User.Identity!.IsAuthenticated
+        ? Convert.ToInt64(User.FindFirstValue(ClaimTypes.NameIdentifier))
+        : null;
 }
