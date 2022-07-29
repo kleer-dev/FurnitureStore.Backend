@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FurnitureStore.Application.CommandsQueries.Furniture.Commands.Create;
 using FurnitureStore.Application.CommandsQueries.Furniture.Commands.Delete;
 using FurnitureStore.Application.CommandsQueries.Furniture.Queries.Get;
+using FurnitureStore.Application.CommandsQueries.Furniture.Queries.GetList;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
@@ -18,6 +19,15 @@ public class FurnitureController : BaseController
         var vm = await Mediator.Send(query);
 
         return Ok(vm);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<FurnitureDto>>> GetAll()
+    {
+        var query = new GetFurnitureListQuery();
+        var vm = await Mediator.Send(query);
+
+        return Ok(vm.Furnitures);
     }
 
     [HttpPost]

@@ -32,9 +32,6 @@ public class GetFurnitureTypeListQueryHandler
             .ProjectTo<FurnitureTypeDto>(_mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
-        if (furnitureTypes == null)
-            return new GetFurnitureTypeListVm();
-
         return new GetFurnitureTypeListVm() { FurnitureTypes = furnitureTypes };
     }
 }
