@@ -30,7 +30,7 @@ public class FurnitureTypeController : BaseController
     }
 
     [HttpGet]
-    public async Task<ActionResult> GetAll()
+    public async Task<ActionResult<IEnumerable<FurnitureTypeDto>>> GetAll()
     {
         var query = new GetFurnitureTypeListQuery();
         var vm = await Mediator.Send(query);

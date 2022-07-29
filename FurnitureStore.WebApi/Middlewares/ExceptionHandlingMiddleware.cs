@@ -26,27 +26,22 @@ public class ExceptionHandlingMiddleware
         }
         catch (NotFoundException e)
         {
-            _logger.LogError(e, $"Error - {e}");
             await HandleExceptionAsync(httpContext, e, HttpStatusCode.NotFound);
         }
         catch (UserRegistrationException e)
         {
-            _logger.LogError(e, $"Error - {e}");
             await HandleExceptionAsync(httpContext, e, HttpStatusCode.BadRequest);
         }
         catch (ValidationException e)
         {
-            _logger.LogError(e, $"Error - {e}");
             await HandleExceptionAsync(httpContext, e, HttpStatusCode.BadRequest);
         }
         catch (RecordIsExistException e)
         {
-            _logger.LogError(e, $"Error - {e}");
             await HandleExceptionAsync(httpContext, e, HttpStatusCode.UnprocessableEntity);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error - {e}");
             await HandleExceptionAsync(httpContext, e, HttpStatusCode.NotFound);
         }
     }
@@ -64,6 +59,8 @@ public class ExceptionHandlingMiddleware
         };
 
         string result = JsonSerializer.Serialize(errorDto);
+
+        _logger.LogError(exception, $"Error - {exception}");
 
         await httpContext.Response.WriteAsync(result);
     }

@@ -2,9 +2,9 @@
 
 namespace FurnitureStore.Application.CommandsQueries.FurnitureType.Queries.Get;
 
-public class GetFurnitureTypeValidator : AbstractValidator<GetFurnitureTypeQuery>
+public class GetFurnitureTypeQueryValidator : AbstractValidator<GetFurnitureTypeQuery>
 {
-    public GetFurnitureTypeValidator()
+    public GetFurnitureTypeQueryValidator()
     {
         RuleFor(f => f.Id).NotEmpty();
     }
