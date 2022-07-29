@@ -2,9 +2,9 @@
 
 namespace FurnitureStore.Application.CommandsQueries.FurnitureType.Commands.Update;
 
-public class UpdateFurnitureTypeValidator : AbstractValidator<UpdateFurnitureTypeCommand>
+public class UpdateFurnitureTypeCommandValidator : AbstractValidator<UpdateFurnitureTypeCommand>
 {
-    public UpdateFurnitureTypeValidator()
+    public UpdateFurnitureTypeCommandValidator()
     {
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.Name).NotEmpty().MaximumLength(150);

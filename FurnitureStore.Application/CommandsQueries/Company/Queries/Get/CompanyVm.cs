@@ -8,7 +8,7 @@ public class CompanyVm : IMapWith<Domain.Company>
 {
     public long Id { get; set; }
     public string Name { get; set; }
-    public List<Furniture> Furnitures { get; set; }
+    public List<Domain.Furniture> Furnitures { get; set; }
 
     public void Mapping(Profile profile)
     {

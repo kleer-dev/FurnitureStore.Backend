@@ -2,9 +2,9 @@
 
 namespace FurnitureStore.Application.CommandsQueries.FurnitureType.Commands.Create;
 
-public class CreateFurnitureCommandValidator : AbstractValidator<CreateFurnitureTypeCommand>
+public class CreateFurnitureTypeCommandValidator : AbstractValidator<CreateFurnitureTypeCommand>
 {
-    public CreateFurnitureCommandValidator()
+    public CreateFurnitureTypeCommandValidator()
     {
         RuleFor(c => c.Name)
             .NotEmpty()
