@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using FurnitureStore.Application.CommandsQueries.Furniture.Commands.Create;
 using FurnitureStore.Application.CommandsQueries.Furniture.Commands.Delete;
+using FurnitureStore.Application.CommandsQueries.Furniture.Queries.Get;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
@@ -10,6 +11,15 @@ namespace FurnitureStore.WebApi.Controllers;
 [Route("api/furnitures")]
 public class FurnitureController : BaseController
 {
+    [HttpGet("{id:long}")]
+    public async Task<ActionResult<FurnitureVm>> Get(long id)
+    {
+        var query = new GetFurnitureQuery() { Id = id };
+        var vm = await Mediator.Send(query);
+
+        return Ok(vm);
+    }
+
     [HttpPost]
     public async Task<ActionResult<long>> Create([FromBody] CreateFurnitureCommand furniture)
     {

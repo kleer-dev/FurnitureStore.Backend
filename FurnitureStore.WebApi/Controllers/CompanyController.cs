@@ -30,7 +30,7 @@ public class CompanyController : BaseController
     }
 
     [HttpGet]
-    public async Task<ActionResult> GetAll()
+    public async Task<ActionResult<IEnumerable<CompanyDto>>> GetAll()
     {
         var query = new GetCompanyListQuery();
         var vm = await Mediator.Send(query);
