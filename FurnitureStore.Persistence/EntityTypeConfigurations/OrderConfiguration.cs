@@ -11,6 +11,8 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.HasKey(order => order.Id);
         builder.HasIndex(order => order.Id).IsUnique();
 
+        builder.Property(order => order.IsCompleted).HasDefaultValue(false);
+
         builder.HasOne(order => order.User)
             .WithMany(user => user.Orders);
 
