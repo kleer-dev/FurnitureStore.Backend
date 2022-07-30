@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FurnitureStore.Application.CommandsQueries.Order.Commands.Create;
 using FurnitureStore.Application.CommandsQueries.Order.Commands.Delete;
+using FurnitureStore.Application.CommandsQueries.Order.Commands.Update;
 using FurnitureStore.Application.CommandsQueries.Order.Queries.Get;
 using FurnitureStore.Application.CommandsQueries.Order.Queries.GetList;
 using FurnitureStore.WebApi.Dto.Order;
@@ -62,6 +63,18 @@ public class OrderController : BaseController
             OrderId = id,
             UserId = UserId,
         };
+
+        await Mediator.Send(command);
+
+        return NoContent();
+    }
+
+    [HttpPut("{id:long}")]
+    public async Task<ActionResult> Update(long id, [FromBody] UpdateOrderDto dto)
+    {
+        var command = _mapper.Map<UpdateOrderCommand>(dto);
+        command.OrderId = id;
+        command.UserId = UserId;
 
         await Mediator.Send(command);
 
