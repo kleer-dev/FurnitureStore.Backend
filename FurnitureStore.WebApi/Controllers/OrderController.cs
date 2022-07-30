@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FurnitureStore.Application.CommandsQueries.Order.Commands.Create;
+using FurnitureStore.Application.CommandsQueries.Order.Commands.Delete;
 using FurnitureStore.Application.CommandsQueries.Order.Queries.Get;
 using FurnitureStore.Application.CommandsQueries.Order.Queries.GetList;
 using FurnitureStore.WebApi.Dto.Order;
@@ -23,8 +24,8 @@ public class OrderController : BaseController
     [HttpGet("{id:long}")]
     public async Task<ActionResult<OrderVm>> Get(long id)
     {
-        var command = new GetOrderQuery() 
-        { 
+        var command = new GetOrderQuery()
+        {
             Id = id,
             UserId = UserId
         };
@@ -51,5 +52,19 @@ public class OrderController : BaseController
         var orderId = await Mediator.Send(command);
 
         return Created("api/orders", orderId);
+    }
+
+    [HttpDelete("{id:long}")]
+    public async Task<ActionResult> Delete(long id)
+    {
+        var command = new DeleteOrderCommand()
+        {
+            OrderId = id,
+            UserId = UserId,
+        };
+
+        await Mediator.Send(command);
+
+        return NoContent();
     }
 }
