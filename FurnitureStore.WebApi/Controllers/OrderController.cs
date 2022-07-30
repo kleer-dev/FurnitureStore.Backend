@@ -23,7 +23,7 @@ public class OrderController : BaseController
         _mapper = mapper;
     }
 
-    [HttpGet("{id:long}")]
+    [HttpGet("get/{id:long}")]
     public async Task<ActionResult<OrderVm>> Get(long id)
     {
         var command = new GetOrderQuery()
@@ -36,7 +36,7 @@ public class OrderController : BaseController
         return Ok(order);
     }
 
-    [HttpGet]
+    [HttpGet("get-all")]
     public async Task<ActionResult<IEnumerable<OrderDto>>> GetAll()
     {
         var query = new GetOrderListQuery() { UserId = UserId };
@@ -45,7 +45,7 @@ public class OrderController : BaseController
         return Ok(vm.Orders);
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<ActionResult<long>> Create([FromBody] CreateOrderDto dto)
     {
         var command = _mapper.Map<CreateOrderCommand>(dto);
@@ -56,7 +56,7 @@ public class OrderController : BaseController
         return Created("api/orders", orderId);
     }
 
-    [HttpDelete("{id:long}")]
+    [HttpDelete("delete/{id:long}")]
     public async Task<ActionResult> Delete(long id)
     {
         var command = new DeleteOrderCommand()
@@ -70,7 +70,7 @@ public class OrderController : BaseController
         return NoContent();
     }
 
-    [HttpPut("{id:long}")]
+    [HttpPut("update/{id:long}")]
     public async Task<ActionResult> Update(long id, [FromBody] UpdateOrderDto dto)
     {
         var command = _mapper.Map<UpdateOrderCommand>(dto);
@@ -82,7 +82,7 @@ public class OrderController : BaseController
         return NoContent();
     }
 
-    [HttpPost("{id:long}")]
+    [HttpPost("buy/{id:long}")]
     public async Task<ActionResult> Buy(long id)
     {
         var command = new BuyOrderCommand()
