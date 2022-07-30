@@ -20,7 +20,7 @@ public class FurnitureTypeController : BaseController
         _mapper = mapper;
     }
 
-    [HttpGet("{id:long}")]
+    [HttpGet("get/{id:long}")]
     public async Task<ActionResult<FurnitureTypeVm>> Get(long id)
     {
         var query = new GetFurnitureTypeQuery() { Id = id };
@@ -29,7 +29,7 @@ public class FurnitureTypeController : BaseController
         return Ok(furnitureType);
     }
 
-    [HttpGet]
+    [HttpGet("get-all")]
     public async Task<ActionResult<IEnumerable<FurnitureTypeDto>>> GetAll()
     {
         var query = new GetFurnitureTypeListQuery();
@@ -38,7 +38,7 @@ public class FurnitureTypeController : BaseController
         return Ok(vm.FurnitureTypes);
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<ActionResult<long>> Create([FromBody] CreateFurnitureTypeDto dto)
     {
         var command = _mapper.Map<CreateFurnitureTypeCommand>(dto);
@@ -47,7 +47,7 @@ public class FurnitureTypeController : BaseController
         return Created("api/furniture-types", furnitureTypeId);
     }
 
-    [HttpDelete("{id:long}")]
+    [HttpDelete("delete/{id:long}")]
     public async Task<ActionResult> Delete(long id)
     {
         var command = new DeleteFurnitureTypeCommand() { Id = id };
@@ -56,7 +56,7 @@ public class FurnitureTypeController : BaseController
         return NoContent();
     }
 
-    [HttpPut("{id:long}")]
+    [HttpPut("update/{id:long}")]
     public async Task<ActionResult> Update(long id, [FromBody] UpdateFurnitureTypeDto dto)
     {
         var command = _mapper.Map<UpdateFurnitureTypeCommand>(dto);
