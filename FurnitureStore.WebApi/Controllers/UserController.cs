@@ -27,7 +27,7 @@ public class UserController : BaseController
         return await Mediator.Send(command);
     }
 
-    [HttpGet]
+    [HttpGet("get-info")]
     public async Task<ActionResult<UserVm>> Get()
     {
         var query = new GetUserQuery() { UserId = UserId};
