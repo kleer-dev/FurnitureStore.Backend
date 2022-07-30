@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FurnitureStore.Application.CommandsQueries.User.Queries.Get;
+using MediatR;
 
 namespace FurnitureStore.Application.CommandsQueries.Company.Queries.Get;
 
