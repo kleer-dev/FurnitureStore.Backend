@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FurnitureStore.Application.CommandsQueries.Order.Commands.Buy;
 using FurnitureStore.Application.CommandsQueries.Order.Commands.Create;
 using FurnitureStore.Application.CommandsQueries.Order.Commands.Delete;
 using FurnitureStore.Application.CommandsQueries.Order.Commands.Update;
@@ -79,5 +80,19 @@ public class OrderController : BaseController
         await Mediator.Send(command);
 
         return NoContent();
+    }
+
+    [HttpPost("{id:long}")]
+    public async Task<ActionResult> Buy(long id)
+    {
+        var command = new BuyOrderCommand()
+        {
+            OrderId = id,
+            UserId = UserId
+        };
+
+        var orderId = await Mediator.Send(command);
+
+        return Ok(orderId);
     }
 }

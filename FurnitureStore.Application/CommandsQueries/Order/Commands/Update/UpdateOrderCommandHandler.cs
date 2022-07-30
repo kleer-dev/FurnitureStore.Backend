@@ -19,7 +19,7 @@ public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, Uni
     {
         var order = await _dbContext.Orders
             .FirstOrDefaultAsync(o => o.Id == request.OrderId && 
-                o.User.Id == request.UserId, cancellationToken);
+                o.User.Id == request.UserId && o.IsCompleted == false, cancellationToken);
 
         var furniture = await _dbContext.Furnitures
             .FirstOrDefaultAsync(f => f.Id == request.FurnitureId, cancellationToken);
