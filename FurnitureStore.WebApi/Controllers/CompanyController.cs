@@ -20,7 +20,7 @@ public class CompanyController : BaseController
         _mapper = mapper;
     }
 
-    [HttpGet("{id:long}")]
+    [HttpGet("get/{id:long}")]
     public async Task<ActionResult<CompanyVm>> Get(long id)
     {
         var query = new GetCompanyQuery() { Id = id };
@@ -29,7 +29,7 @@ public class CompanyController : BaseController
         return Ok(company);
     }
 
-    [HttpGet]
+    [HttpGet("get-all")]
     public async Task<ActionResult<IEnumerable<CompanyDto>>> GetAll()
     {
         var query = new GetCompanyListQuery();
@@ -38,7 +38,7 @@ public class CompanyController : BaseController
         return Ok(vm.Companies);
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<ActionResult<long>> Create([FromBody] CreateCompanyDto dto)
     {
         var command = _mapper.Map<CreateCompanyCommand>(dto);
@@ -47,7 +47,7 @@ public class CompanyController : BaseController
         return Created("api/company", companyId);
     }
 
-    [HttpDelete("{id:long}")]
+    [HttpDelete("delete/{id:long}")]
     public async Task<ActionResult> Delete(long id)
     {
         var command = new DeleteCompanyCommand { Id = id };
@@ -56,7 +56,7 @@ public class CompanyController : BaseController
         return NoContent();
     }
 
-    [HttpPut("{id:long}")]
+    [HttpPut("update/{id:long}")]
     public async Task<ActionResult> Update(long id, [FromBody] UpdateCompanyDto dto)
     {
         var command = _mapper.Map<UpdateCompanyCommand>(dto);
