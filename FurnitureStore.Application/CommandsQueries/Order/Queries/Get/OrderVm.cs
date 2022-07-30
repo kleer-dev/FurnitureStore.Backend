@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
 using FurnitureStore.Application.Common.Mappings;
-using FurnitureStore.Domain;
 
-namespace FurnitureStore.Application.CommandsQueries.Order.Queries.GetList;
+namespace FurnitureStore.Application.CommandsQueries.Order.Queries.Get;
 
-public class OrderDto : IMapWith<Domain.Order>
+public class OrderVm : IMapWith<Domain.Order>
 {
     public long Id { get; set; }
     public bool IsCompleted { get; set; }
     public DateTime? CompletionDate { get; set; }
-
     public string UserName { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
@@ -17,7 +15,7 @@ public class OrderDto : IMapWith<Domain.Order>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<Domain.Order, OrderDto>()
+        profile.CreateMap<Domain.Order, OrderVm>()
             .ForMember(order => order.Id,
                 o => o.MapFrom(order => order.Id))
             .ForMember(order => order.IsCompleted,

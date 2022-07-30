@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using FurnitureStore.Application.Interfaces;
+using FurnitureStore.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +23,11 @@ public class GetOrderListQueryHandler : IRequestHandler<GetOrderListQuery, GetOr
     {
         var orders = await _dbContext.Orders
             .Include(o => o.User)
-            .Where(o => o.User.Id == request.User.Value)
+            .Include(o => o.Furniture)
+                .ThenInclude(o => o.Company)
+            .Include(o => o.Furniture)
+                .ThenInclude(o => o.FurnitureType)
+            .Where(o => o.User.Id == request.UserId)    
             .ProjectTo<OrderDto>(_mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
