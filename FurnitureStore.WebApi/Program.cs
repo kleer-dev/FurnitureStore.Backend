@@ -6,6 +6,7 @@ using FurnitureStore.Auth;
 using FurnitureStore.Domain;
 using FurnitureStore.Persistence;
 using FurnitureStore.WebApi.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using NLog;
@@ -60,6 +61,12 @@ try
         options.User.RequireUniqueEmail = true;
         options.SignIn.RequireConfirmedEmail = false;
     }).AddEntityFrameworkStores<FurnitureStoreDbContext>();
+
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    });
 
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
