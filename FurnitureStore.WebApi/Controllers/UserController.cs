@@ -36,7 +36,7 @@ public class UserController : BaseController
         return Ok(vm);
     }
 
-    [HttpPatch("addmoney/{amount:decimal}")]
+    [HttpPatch("add-money/{amount:decimal}")]
     public async Task<ActionResult<decimal>> AddMoney(decimal amount)
     {
         var command = new UserAddMoneyCommand()
