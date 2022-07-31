@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
 
-[ApiController]
 [Route("api/companies")]
 public class CompanyController : BaseController
 {

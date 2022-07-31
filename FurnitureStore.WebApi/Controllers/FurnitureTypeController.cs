@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
 
-[ApiController]
 [Route("api/furniture-types")]
 public class FurnitureTypeController : BaseController
 {

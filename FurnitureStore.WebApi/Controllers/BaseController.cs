@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
 
+[ApiController]
 public abstract class BaseController : ControllerBase
 {
     private IMediator? _mediator;

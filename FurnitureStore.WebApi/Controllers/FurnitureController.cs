@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
 
-[ApiController]
 [Route("api/furniture")]
 public class FurnitureController : BaseController
 {

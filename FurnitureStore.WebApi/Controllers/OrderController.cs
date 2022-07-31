@@ -11,9 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
 
-[ApiController]
-[Route("api/orders")]
 [Authorize]
+[Route("api/orders")]
 public class OrderController : BaseController
 {
     private readonly IMapper _mapper;
