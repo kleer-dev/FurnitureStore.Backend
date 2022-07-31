@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FurnitureStore.WebApi.Controllers;
 
 [ApiController]
-[Route("api/furnitures")]
+[Route("api/furniture")]
 public class FurnitureController : BaseController
 {
     private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ public class FurnitureController : BaseController
         _mapper = mapper;
     }
 
-    [HttpGet("{id:long}")]
+    [HttpGet("get/{id:long}")]
     public async Task<ActionResult<FurnitureVm>> Get(long id)
     {
         var query = new GetFurnitureQuery() { Id = id };
@@ -31,7 +31,7 @@ public class FurnitureController : BaseController
         return Ok(vm);
     }
 
-    [HttpGet]
+    [HttpGet("get-all")]
     public async Task<ActionResult<IEnumerable<FurnitureDto>>> GetAll()
     {
         var query = new GetFurnitureListQuery();
@@ -40,7 +40,7 @@ public class FurnitureController : BaseController
         return Ok(vm.Furnitures);
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<ActionResult<long>> Create([FromBody] CreateFurnitureCommand furniture)
     {
         var furnitureId = await Mediator.Send(furniture);
@@ -48,7 +48,7 @@ public class FurnitureController : BaseController
         return Created("api/furnitures", furnitureId);
     }
 
-    [HttpDelete("{id:long}")]
+    [HttpDelete("delete/{id:long}")]
     public async Task<ActionResult> Delete(long id)
     {
         var command = new DeleteFurnitureCommand() { Id = id };
@@ -57,7 +57,7 @@ public class FurnitureController : BaseController
         return NoContent();
     }
 
-    [HttpPut("{id:long}")]
+    [HttpPut("update/{id:long}")]
     public async Task<ActionResult> Update(long id, [FromBody] UpdateFurnitureDto dto)
     {
         var command = _mapper.Map<UpdateFurnitureCommand>(dto);

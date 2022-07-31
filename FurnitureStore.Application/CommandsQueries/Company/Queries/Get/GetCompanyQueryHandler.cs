@@ -22,7 +22,6 @@ public class GetCompanyQueryHandler : IRequestHandler<GetCompanyQuery, CompanyVm
     {
         var company = await _dbContext.Companies
             .Include(f => f.Furnitures)
-                .ThenInclude(f => f.FurnitureType)
             .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
 
         if (company == null)
