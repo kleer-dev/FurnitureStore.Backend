@@ -1,4 +1,5 @@
 ﻿using FurnitureStore.Application.CommandsQueries.Role.Commands.Create;
+using FurnitureStore.Application.CommandsQueries.Role.Commands.Delete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
@@ -12,5 +13,14 @@ public class RoleController : BaseController
         var roleId = await Mediator.Send(role);
 
         return Created("api/roles", roleId);
+    }
+
+    [HttpDelete("delete/{id:long}")]
+    public async Task<ActionResult> Delete(long id)
+    {
+        var command = new DeleteRoleCommand() { RoleId = id };
+        await Mediator.Send(command);
+
+        return NoContent();
     }
 }
