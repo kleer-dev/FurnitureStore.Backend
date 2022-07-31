@@ -8,6 +8,6 @@ public class CreateFurnitureTypeCommandValidator : AbstractValidator<CreateFurni
     {
         RuleFor(c => c.Name)
             .NotEmpty()
-            .MaximumLength(150);
+            .MaximumLength(255);
     }
 }

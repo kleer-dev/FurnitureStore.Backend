@@ -8,6 +8,6 @@ public class CreateCompanyCommandValidator : AbstractValidator<CreateCompanyComm
     {
         RuleFor(c => c.Name)
             .NotEmpty()
-            .MaximumLength(150);
+            .MaximumLength(255);
     }
 }
