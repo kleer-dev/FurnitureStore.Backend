@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using FurnitureStore.Application.CommandsQueries.Role.Commands.Create;
 using FurnitureStore.Application.CommandsQueries.Role.Commands.Delete;
+using FurnitureStore.Application.CommandsQueries.Role.Commands.SetRole;
 using FurnitureStore.Application.CommandsQueries.Role.Commands.Update;
 using FurnitureStore.Application.CommandsQueries.Role.Queries.Get;
 using FurnitureStore.Application.CommandsQueries.Role.Queries.GetList;
 using FurnitureStore.WebApi.Dto.Roles;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
@@ -61,6 +61,15 @@ public class RoleController : BaseController
         var command = _mapper.Map<UpdateRoleCommand>(dto);
         command.Id = id;
 
+        await Mediator.Send(command);
+
+        return NoContent();
+    }
+
+    [HttpPost("set-role")]
+    public async Task<ActionResult> SetRole([FromBody] SetRoleDto dto)
+    {
+        var command = _mapper.Map<SetRoleCommand>(dto);
         await Mediator.Send(command);
 
         return NoContent();
