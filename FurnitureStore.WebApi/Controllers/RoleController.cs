@@ -1,6 +1,7 @@
 ﻿using FurnitureStore.Application.CommandsQueries.Role.Commands.Create;
 using FurnitureStore.Application.CommandsQueries.Role.Commands.Delete;
 using FurnitureStore.Application.CommandsQueries.Role.Queries.Get;
+using FurnitureStore.Application.CommandsQueries.Role.Queries.GetList;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
@@ -15,6 +16,15 @@ public class RoleController : BaseController
         var role = await Mediator.Send(query);
         
         return Ok(role);
+    }
+
+    [HttpGet("get-all")]
+    public async Task<ActionResult<IEnumerable<RoleDto>>> GetAll()
+    {
+        var query = new GetRoleListQuery();
+        var vm = await Mediator.Send(query);
+
+        return Ok(vm.Roles);
     }
     
     [HttpPost("add")]
