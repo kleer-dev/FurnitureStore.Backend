@@ -1,7 +1,11 @@
-﻿using FurnitureStore.Application.CommandsQueries.Role.Commands.Create;
+﻿using AutoMapper;
+using FurnitureStore.Application.CommandsQueries.Role.Commands.Create;
 using FurnitureStore.Application.CommandsQueries.Role.Commands.Delete;
+using FurnitureStore.Application.CommandsQueries.Role.Commands.Update;
 using FurnitureStore.Application.CommandsQueries.Role.Queries.Get;
 using FurnitureStore.Application.CommandsQueries.Role.Queries.GetList;
+using FurnitureStore.WebApi.Dto.Roles;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
@@ -9,6 +13,13 @@ namespace FurnitureStore.WebApi.Controllers;
 [Route("api/roles")]
 public class RoleController : BaseController
 {
+    private readonly IMapper _mapper;
+
+    public RoleController(IMapper mapper)
+    {
+        _mapper = mapper;
+    }
+
     [HttpGet("get/{id:long}")]
     public async Task<ActionResult> Get(long id)
     {
@@ -39,6 +50,17 @@ public class RoleController : BaseController
     public async Task<ActionResult> Delete(long id)
     {
         var command = new DeleteRoleCommand() { RoleId = id };
+        await Mediator.Send(command);
+
+        return NoContent();
+    }
+
+    [HttpPut("update/{id:long}")]
+    public async Task<ActionResult> Update(long id, [FromBody] UpdateRoleDto dto)
+    {
+        var command = _mapper.Map<UpdateRoleCommand>(dto);
+        command.Id = id;
+
         await Mediator.Send(command);
 
         return NoContent();
