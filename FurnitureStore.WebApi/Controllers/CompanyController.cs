@@ -5,11 +5,12 @@ using FurnitureStore.Application.CommandsQueries.Company.Commands.Update;
 using FurnitureStore.Application.CommandsQueries.Company.Queries.Get;
 using FurnitureStore.Application.CommandsQueries.Company.Queries.GetList;
 using FurnitureStore.WebApi.Dto.Company;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
 
-[ApiController]
+[Authorize(Roles = "Admin")]
 [Route("api/companies")]
 public class CompanyController : BaseController
 {
@@ -20,6 +21,7 @@ public class CompanyController : BaseController
         _mapper = mapper;
     }
 
+    [AllowAnonymous]
     [HttpGet("get/{id:long}")]
     public async Task<ActionResult<CompanyVm>> Get(long id)
     {
@@ -29,6 +31,7 @@ public class CompanyController : BaseController
         return Ok(company);
     }
 
+    [AllowAnonymous]
     [HttpGet("get-all")]
     public async Task<ActionResult<IEnumerable<CompanyDto>>> GetAll()
     {
