@@ -12,9 +12,9 @@ public class UpdateFurnitureCommandValidator : AbstractValidator<UpdateFurniture
             .NotEmpty()
             .MaximumLength(255);
 
-        RuleFor(f => f.Price).NotEmpty();
-        RuleFor(f => f.Lenght).NotEmpty();
-        RuleFor(f => f.Height).NotEmpty();
+        RuleFor(f => f.Price).NotEmpty().GreaterThan(0);
+        RuleFor(f => f.Lenght).NotEmpty().GreaterThan(0);
+        RuleFor(f => f.Height).NotEmpty().GreaterThan(0);
 
         RuleFor(f => f.Material)
            .NotEmpty()

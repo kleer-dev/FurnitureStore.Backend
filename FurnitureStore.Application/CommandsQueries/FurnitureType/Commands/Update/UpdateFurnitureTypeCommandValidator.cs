@@ -7,6 +7,6 @@ public class UpdateFurnitureTypeCommandValidator : AbstractValidator<UpdateFurni
     public UpdateFurnitureTypeCommandValidator()
     {
         RuleFor(c => c.Id).NotEmpty();
-        RuleFor(c => c.Name).NotEmpty().MaximumLength(150);
+        RuleFor(c => c.Name).NotEmpty().MaximumLength(255);
     }
 }
