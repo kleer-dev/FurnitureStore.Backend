@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using FurnitureStore.Auth.Interfaces;
 using FurnitureStore.Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -11,18 +12,24 @@ namespace FurnitureStore.Auth;
 public class JwtGenerator : IJwtGenerator
 {
     private readonly SymmetricSecurityKey _key;
+    private readonly UserManager<User> _userManager;
 
-    public JwtGenerator(IConfiguration configuration)
+    public JwtGenerator(IConfiguration configuration, UserManager<User> userManager)
     {
-        _key = _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]));
+        _userManager = userManager;
+        _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]));
     }
 
     public string CreateToken(User user)
     {
+        var roles = _userManager.GetRolesAsync(user).Result;
+        
         var claims = new List<Claim>()
         {
             new(JwtRegisteredClaimNames.NameId, user.Id.ToString())
         };
+        
+        claims.AddRange(roles.Select(c => new Claim(ClaimTypes.Role, c)));
 
         var credentials = new SigningCredentials(_key,
             SecurityAlgorithms.HmacSha512Signature);

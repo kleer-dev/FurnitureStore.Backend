@@ -26,7 +26,7 @@ public class SetRoleCommandHandler : IRequestHandler<SetRoleCommand, Unit>
             throw new NotFoundException(nameof(Domain.User), request.UserId);
         
         if (role == null)
-            throw new NotFoundException(nameof(IdentityRole<long>), request.UserId);
+            throw new NotFoundException(nameof(IdentityRole<long>), request.RoleId);
 
         var result = await _userManager.AddToRoleAsync(user, role.Name);
         

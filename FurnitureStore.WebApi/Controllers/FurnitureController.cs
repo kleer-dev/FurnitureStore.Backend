@@ -7,10 +7,12 @@ using FurnitureStore.Application.CommandsQueries.Furniture.Commands.Update;
 using FurnitureStore.Application.CommandsQueries.Furniture.Queries.Get;
 using FurnitureStore.Application.CommandsQueries.Furniture.Queries.GetList;
 using FurnitureStore.WebApi.Dto.Furniture;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
 
+[Authorize(Roles = "Admin")]
 [Route("api/furniture")]
 public class FurnitureController : BaseController
 {
@@ -21,6 +23,7 @@ public class FurnitureController : BaseController
         _mapper = mapper;
     }
 
+    [AllowAnonymous]
     [HttpGet("get/{id:long}")]
     public async Task<ActionResult<FurnitureVm>> Get(long id)
     {
@@ -30,6 +33,7 @@ public class FurnitureController : BaseController
         return Ok(vm);
     }
 
+    [AllowAnonymous]
     [HttpGet("get-all")]
     public async Task<ActionResult<IEnumerable<FurnitureDto>>> GetAll()
     {

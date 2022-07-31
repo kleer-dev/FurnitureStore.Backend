@@ -6,10 +6,12 @@ using FurnitureStore.Application.CommandsQueries.Role.Commands.Update;
 using FurnitureStore.Application.CommandsQueries.Role.Queries.Get;
 using FurnitureStore.Application.CommandsQueries.Role.Queries.GetList;
 using FurnitureStore.WebApi.Dto.Roles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
 
+[Authorize(Roles = "Admin")]
 [Route("api/roles")]
 public class RoleController : BaseController
 {
@@ -28,7 +30,7 @@ public class RoleController : BaseController
         
         return Ok(role);
     }
-
+    
     [HttpGet("get-all")]
     public async Task<ActionResult<IEnumerable<RoleDto>>> GetAll()
     {

@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FurnitureStore.WebApi.Controllers;
 
-[Authorize]
 [Route("api/user")]
 public class UserController : BaseController
 {
@@ -26,6 +25,7 @@ public class UserController : BaseController
         return await Mediator.Send(command);
     }
 
+    [Authorize]
     [HttpGet("get-info")]
     public async Task<ActionResult<UserVm>> Get()
     {
@@ -35,6 +35,7 @@ public class UserController : BaseController
         return Ok(vm);
     }
 
+    [Authorize]
     [HttpPatch("add-money/{amount:decimal}")]
     public async Task<ActionResult<decimal>> AddMoney(decimal amount)
     {
