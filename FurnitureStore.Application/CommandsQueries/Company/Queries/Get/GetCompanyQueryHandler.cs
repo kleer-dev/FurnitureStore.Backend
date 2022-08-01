@@ -10,22 +10,24 @@ public class GetCompanyQueryHandler : IRequestHandler<GetCompanyQuery, CompanyVm
 {
     private readonly IFurnitureStoreDbContext _dbContext;
     private readonly IMapper _mapper;
+    private readonly ICacheManager<Domain.Company> _cacheManager;
 
-    public GetCompanyQueryHandler(IFurnitureStoreDbContext dbContext, IMapper mapper)
+    public GetCompanyQueryHandler(IFurnitureStoreDbContext dbContext, IMapper mapper,
+        ICacheManager<Domain.Company> cacheManager)
     {
         _dbContext = dbContext;
         _mapper = mapper;
+        _cacheManager = cacheManager;
     }
 
     public async Task<CompanyVm> Handle(GetCompanyQuery request,
         CancellationToken cancellationToken)
     {
-        var company = await _dbContext.Companies
+        var companyQuery = async () => await _dbContext.Companies
             .Include(f => f.Furnitures)
             .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
-
-        if (company == null)
-            throw new NotFoundException(nameof(Domain.Company), request.Id);
+        
+        var company = await _cacheManager.GetOrSetCacheValue(request.Id, companyQuery);
 
         return _mapper.Map<CompanyVm>(company);
     }

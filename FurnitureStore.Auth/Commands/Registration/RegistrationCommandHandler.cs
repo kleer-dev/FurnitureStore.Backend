@@ -7,7 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace FurnitureStore.Auth.Registration;
+namespace FurnitureStore.Auth.Commands.Registration;
 
 public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, AuthResponse>
 {

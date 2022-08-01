@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace FurnitureStore.Auth.Login;
+namespace FurnitureStore.Auth.Commands.Login;
 
 public class LoginValidator : AbstractValidator<LoginQuery>
 {

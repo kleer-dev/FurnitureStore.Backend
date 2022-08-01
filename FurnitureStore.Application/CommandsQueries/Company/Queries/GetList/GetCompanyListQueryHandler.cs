@@ -25,6 +25,6 @@ public class GetCompanyListQueryHandler : IRequestHandler<GetCompanyListQuery, G
             .ProjectTo<CompanyDto>(_mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
-        return new GetCompanyListVm() { Companies = companies };
+        return new GetCompanyListVm { Companies = companies };
     }
 }

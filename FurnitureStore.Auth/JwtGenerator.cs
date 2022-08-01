@@ -27,7 +27,7 @@ public class JwtGenerator : IJwtGenerator
     {
         var roles = _userManager.GetRolesAsync(user).Result;
         
-        var claims = new List<Claim>()
+        var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.NameId, user.Id.ToString())
         };
@@ -37,12 +37,12 @@ public class JwtGenerator : IJwtGenerator
         var credentials = new SigningCredentials(_key,
             SecurityAlgorithms.HmacSha512Signature);
 
-        var tokenDescriptor = new SecurityTokenDescriptor()
+        var tokenDescriptor = new SecurityTokenDescriptor
         {
             Issuer = _configuration["JWT:Issuer"],
             Audience = _configuration["JWT:Audience"],
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddMinutes(1),
+            Expires = DateTime.Now.AddMinutes(15),
             SigningCredentials = credentials,
         };
 

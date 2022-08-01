@@ -8,10 +8,13 @@ namespace FurnitureStore.Application.CommandsQueries.FurnitureType.Commands.Dele
 public class DeleteFurnitureTypeCommandHandler : IRequestHandler<DeleteFurnitureTypeCommand, Unit>
 {
     private readonly IFurnitureStoreDbContext _dbContext;
+    private readonly ICacheManager<Domain.FurnitureType> _cacheManager;
 
-    public DeleteFurnitureTypeCommandHandler(IFurnitureStoreDbContext dbContext)
+    public DeleteFurnitureTypeCommandHandler(IFurnitureStoreDbContext dbContext, 
+        ICacheManager<Domain.FurnitureType> cacheManager)
     {
         _dbContext = dbContext;
+        _cacheManager = cacheManager;
     }
 
     public async Task<Unit> Handle(DeleteFurnitureTypeCommand request, 
@@ -25,6 +28,8 @@ public class DeleteFurnitureTypeCommandHandler : IRequestHandler<DeleteFurniture
 
         _dbContext.FurnitureTypes.Remove(furnitureType);
         await _dbContext.SaveChangesAsync(cancellationToken);
+        
+        _cacheManager.RemoveCacheValue(request.Id);
 
         return Unit.Value;
     }

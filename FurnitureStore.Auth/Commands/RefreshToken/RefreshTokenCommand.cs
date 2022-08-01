@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace FurnitureStore.Auth.RefreshToken;
+namespace FurnitureStore.Auth.Commands.RefreshToken;
 
 public class RefreshTokenCommand : IRequest<AuthResponse>
 {

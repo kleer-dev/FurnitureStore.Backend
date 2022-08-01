@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FurnitureStore.Application.Common.Cache;
 using FurnitureStore.Application.Common.Exceptions;
 using FurnitureStore.Application.Interfaces;
 using MediatR;
@@ -10,24 +11,29 @@ public class GetFurnitureQueryHandler : IRequestHandler<GetFurnitureQuery, Furni
 {
     private readonly IFurnitureStoreDbContext _dbContext;
     private readonly IMapper _mapper;
+    private readonly ICacheManager<Domain.Furniture> _cacheManager;
 
-    public GetFurnitureQueryHandler(IFurnitureStoreDbContext dbContext, IMapper mapper)
+    public GetFurnitureQueryHandler(IFurnitureStoreDbContext dbContext, IMapper mapper, 
+        ICacheManager<Domain.Furniture> cacheManager)
     {
         _dbContext = dbContext;
         _mapper = mapper;
+        _cacheManager = cacheManager;
     }
 
     public async Task<FurnitureVm> Handle(GetFurnitureQuery request, 
         CancellationToken cancellationToken)
     {
-        var furniture = await _dbContext.Furnitures
+        var furnitureQuery = async () => await _dbContext.Furnitures
             .Include(f => f.FurnitureType)
             .Include(f => f.Company)
             .FirstOrDefaultAsync(f => f.Id == request.Id, cancellationToken);
 
-        if (furniture == null)
-            throw new NotFoundException(nameof(Domain.Furniture), request.Id);
-
+        _cacheManager.CacheEntryOptions = CacheEntryOption.DefaultCacheEntry;
+        
+        var furniture = await _cacheManager
+            .GetOrSetCacheValue(request.Id, furnitureQuery);
+        
         furniture.FurnitureType.Furnitures = null!;
         furniture.Company.Furnitures = null!;
 

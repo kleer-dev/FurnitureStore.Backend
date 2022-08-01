@@ -1,28 +1,25 @@
 ﻿using System.Net;
-using AutoMapper;
 using FurnitureStore.Application.Common.Exceptions;
 using FurnitureStore.Auth.Interfaces;
 using FurnitureStore.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace FurnitureStore.Auth.Login;
+namespace FurnitureStore.Auth.Commands.Login;
 
 public class LoginQueryHandler : IRequestHandler<LoginQuery, AuthResponse>
 {
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly IJwtGenerator _jwtGenerator;
-    private readonly IMapper _mapper;
 
     public LoginQueryHandler(UserManager<User> userManager,
         SignInManager<User> signInManager,
-        IJwtGenerator jwtGenerator, IMapper mapper)
+        IJwtGenerator jwtGenerator)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _jwtGenerator = jwtGenerator;
-        _mapper = mapper;
     }
 
     public async Task<AuthResponse> Handle(LoginQuery request, CancellationToken cancellationToken)
