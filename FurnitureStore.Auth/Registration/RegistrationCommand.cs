@@ -2,7 +2,7 @@
 
 namespace FurnitureStore.Auth.Registration;
 
-public class RegistrationCommand : IRequest<UserDto>
+public class RegistrationCommand : IRequest<AuthResponse>
 {
     public string Name { get; set; }
     public string Email { get; set; }

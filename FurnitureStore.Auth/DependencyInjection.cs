@@ -24,8 +24,8 @@ public static class DependencyInjection
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuerSigningKey = true,
-                    ValidateAudience = false,
-                    ValidateIssuer = false,
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
                     ValidateLifetime = true,
                     IssuerSigningKey = key,
                     ValidIssuer = configuration["JWT:Issuer"],
