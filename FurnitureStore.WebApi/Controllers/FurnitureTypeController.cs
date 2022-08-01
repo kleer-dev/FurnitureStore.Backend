@@ -22,6 +22,7 @@ public class FurnitureTypeController : BaseController
     }
 
     [AllowAnonymous]
+    [ResponseCache(CacheProfileName = "QueryCache")]
     [HttpGet("get/{id:long}")]
     public async Task<ActionResult<FurnitureTypeVm>> Get(long id)
     {
@@ -32,6 +33,7 @@ public class FurnitureTypeController : BaseController
     }
 
     [AllowAnonymous]
+    [ResponseCache(CacheProfileName = "QueryCache")]
     [HttpGet("get-all")]
     public async Task<ActionResult<IEnumerable<FurnitureTypeDto>>> GetAll()
     {

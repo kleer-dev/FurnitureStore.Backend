@@ -8,6 +8,7 @@ using FurnitureStore.Persistence;
 using FurnitureStore.WebApi.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NLog;
 using NLog.Web;
@@ -22,7 +23,16 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    builder.Services.AddControllers()
+    builder.Services.AddControllers(options =>
+        {
+            options.CacheProfiles.Add("QueryCache",
+                new CacheProfile()
+                {
+                    Duration = 300,
+                    Location = ResponseCacheLocation.Client,
+                    NoStore = false
+                });
+        })
         .AddNewtonsoftJson(options =>
         {
             options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

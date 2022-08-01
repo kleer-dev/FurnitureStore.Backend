@@ -22,6 +22,7 @@ public class RoleController : BaseController
         _mapper = mapper;
     }
 
+    [ResponseCache(CacheProfileName = "QueryCache")]
     [HttpGet("get/{id:long}")]
     public async Task<ActionResult> Get(long id)
     {
@@ -31,6 +32,7 @@ public class RoleController : BaseController
         return Ok(role);
     }
     
+    [ResponseCache(CacheProfileName = "QueryCache")]
     [HttpGet("get-all")]
     public async Task<ActionResult<IEnumerable<RoleDto>>> GetAll()
     {
