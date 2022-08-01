@@ -24,11 +24,10 @@ try
     builder.Services.AddControllers(options =>
         {
             options.CacheProfiles.Add("QueryCache",
-                new CacheProfile()
+                new CacheProfile
                 {
                     Duration = 300,
-                    Location = ResponseCacheLocation.Client,
-                    NoStore = false
+                    Location = ResponseCacheLocation.Any,
                 });
         })
         .AddNewtonsoftJson(options =>
@@ -110,7 +109,7 @@ try
     app.UseHttpsRedirection();
 
     app.UseCors("AllowAll");
-    
+
     app.UseResponseCaching();
 
     app.UseAuthentication();

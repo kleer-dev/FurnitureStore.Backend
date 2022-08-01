@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace FurnitureStore.Auth.Registration;
+namespace FurnitureStore.Auth.Commands.Registration;
 
 public class RegistrationCommand : IRequest<AuthResponse>
 {

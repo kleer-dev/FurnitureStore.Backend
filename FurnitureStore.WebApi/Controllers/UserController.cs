@@ -2,10 +2,10 @@
 using FurnitureStore.Application.CommandsQueries.User.Commands.AddMoney;
 using FurnitureStore.Application.CommandsQueries.User.Commands.Update;
 using FurnitureStore.Application.CommandsQueries.User.Queries.Get;
-using FurnitureStore.Auth.Login;
-using FurnitureStore.Auth.Registration;
 using FurnitureStore.Auth;
-using FurnitureStore.Auth.RefreshToken;
+using FurnitureStore.Auth.Commands.Login;
+using FurnitureStore.Auth.Commands.RefreshToken;
+using FurnitureStore.Auth.Commands.Registration;
 using FurnitureStore.WebApi.Dto.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

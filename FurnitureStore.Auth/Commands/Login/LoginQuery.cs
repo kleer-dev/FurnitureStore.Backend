@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace FurnitureStore.Auth.Login;
+namespace FurnitureStore.Auth.Commands.Login;
 
 public class LoginQuery : IRequest<AuthResponse>
 {

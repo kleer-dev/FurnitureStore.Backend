@@ -8,10 +8,13 @@ namespace FurnitureStore.Application.CommandsQueries.Order.Commands.Delete;
 public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, Unit>
 {
     private readonly IFurnitureStoreDbContext _dbContext;
+    public readonly ICacheManager<Domain.Order> _cacheManager;
 
-    public DeleteOrderCommandHandler(IFurnitureStoreDbContext dbContext)
+    public DeleteOrderCommandHandler(IFurnitureStoreDbContext dbContext, 
+        ICacheManager<Domain.Order> cacheManager)
     {
         _dbContext = dbContext;
+        _cacheManager = cacheManager;
     }
 
     public async Task<Unit> Handle(DeleteOrderCommand request, 
@@ -26,6 +29,8 @@ public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, Uni
 
         _dbContext.Orders.Remove(order);
         await _dbContext.SaveChangesAsync(cancellationToken);
+        
+        _cacheManager.RemoveCacheValue(order.Id);
 
         return Unit.Value;
     }

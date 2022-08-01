@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace FurnitureStore.Auth.RefreshToken;
+namespace FurnitureStore.Auth.Commands.RefreshToken;
 
 public class RefreshTokenCommandValidator : AbstractValidator<RefreshTokenCommand>
 {

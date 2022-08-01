@@ -4,7 +4,7 @@ using FurnitureStore.Auth.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace FurnitureStore.Auth.RefreshToken;
+namespace FurnitureStore.Auth.Commands.RefreshToken;
 
 public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, AuthResponse>
 {

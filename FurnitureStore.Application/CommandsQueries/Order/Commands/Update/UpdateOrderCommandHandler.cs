@@ -1,4 +1,5 @@
-﻿using FurnitureStore.Application.Common.Exceptions;
+﻿using FurnitureStore.Application.Common.Cache;
+using FurnitureStore.Application.Common.Exceptions;
 using FurnitureStore.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +9,13 @@ namespace FurnitureStore.Application.CommandsQueries.Order.Commands.Update;
 public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, Unit>
 {
     private readonly IFurnitureStoreDbContext _dbContext;
+    private readonly ICacheManager<Domain.Order> _cacheManager;
 
-    public UpdateOrderCommandHandler(IFurnitureStoreDbContext dbContext)
+    public UpdateOrderCommandHandler(IFurnitureStoreDbContext dbContext, 
+        ICacheManager<Domain.Order> cacheManager)
     {
         _dbContext = dbContext;
+        _cacheManager = cacheManager;
     }
 
     public async Task<Unit> Handle(UpdateOrderCommand request,
@@ -33,6 +37,9 @@ public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, Uni
         order.Furniture = furniture;
 
         await _dbContext.SaveChangesAsync(cancellationToken);
+
+        _cacheManager.CacheEntryOptions = CacheEntryOption.DefaultCacheEntry;
+        _cacheManager.ChangeCacheValue(order.Id, order);
 
         return Unit.Value;
     }

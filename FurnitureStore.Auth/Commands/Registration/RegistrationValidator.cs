@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace FurnitureStore.Auth.Registration;
+namespace FurnitureStore.Auth.Commands.Registration;
 
 public class RegistrationValidator : AbstractValidator<RegistrationCommand>
 {
