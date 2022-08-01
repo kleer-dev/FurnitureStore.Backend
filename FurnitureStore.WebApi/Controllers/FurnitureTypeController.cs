@@ -25,7 +25,7 @@ public class FurnitureTypeController : BaseController
     [HttpGet("get/{id:long}")]
     public async Task<ActionResult<FurnitureTypeVm>> Get(long id)
     {
-        var query = new GetFurnitureTypeQuery() { Id = id };
+        var query = new GetFurnitureTypeQuery { Id = id };
         var furnitureType = await Mediator.Send(query);
 
         return Ok(furnitureType);
@@ -53,7 +53,7 @@ public class FurnitureTypeController : BaseController
     [HttpDelete("delete/{id:long}")]
     public async Task<ActionResult> Delete(long id)
     {
-        var command = new DeleteFurnitureTypeCommand() { Id = id };
+        var command = new DeleteFurnitureTypeCommand { Id = id };
         await Mediator.Send(command);
 
         return NoContent();

@@ -25,7 +25,7 @@ public class CompanyController : BaseController
     [HttpGet("get/{id:long}")]
     public async Task<ActionResult<CompanyVm>> Get(long id)
     {
-        var query = new GetCompanyQuery() { Id = id };
+        var query = new GetCompanyQuery { Id = id };
         var company = await Mediator.Send(query);
 
         return Ok(company);

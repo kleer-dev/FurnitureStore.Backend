@@ -25,7 +25,7 @@ public class RoleController : BaseController
     [HttpGet("get/{id:long}")]
     public async Task<ActionResult> Get(long id)
     {
-        var query = new GetRoleQuery() { RoleId = id };
+        var query = new GetRoleQuery { RoleId = id };
         var role = await Mediator.Send(query);
         
         return Ok(role);
@@ -51,7 +51,7 @@ public class RoleController : BaseController
     [HttpDelete("delete/{id:long}")]
     public async Task<ActionResult> Delete(long id)
     {
-        var command = new DeleteRoleCommand() { RoleId = id };
+        var command = new DeleteRoleCommand { RoleId = id };
         await Mediator.Send(command);
 
         return NoContent();
