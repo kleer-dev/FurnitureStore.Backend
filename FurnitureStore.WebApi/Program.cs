@@ -17,8 +17,6 @@ var logger = NLog.LogManager.Setup()
     .LoadConfigurationFromAppSettings()
     .GetCurrentClassLogger();
 
-logger.Debug("Init Main");
-
 try
 {
     var builder = WebApplication.CreateBuilder(args);
@@ -94,9 +92,9 @@ try
 
             DbInitializer.Initialize(context);
         }
-        catch (Exception)
+        catch (Exception e)
         {
-
+            logger.Error(e, "Stopped program because of exception");
             throw;
         }
     }
@@ -112,6 +110,8 @@ try
     app.UseHttpsRedirection();
 
     app.UseCors("AllowAll");
+    
+    app.UseResponseCaching();
 
     app.UseAuthentication();
     app.UseAuthorization();
