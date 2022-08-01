@@ -3,6 +3,7 @@ using FurnitureStore.Application;
 using FurnitureStore.Application.Common.Mappings;
 using FurnitureStore.Application.Interfaces;
 using FurnitureStore.Auth;
+using FurnitureStore.Auth.Interfaces;
 using FurnitureStore.Domain;
 using FurnitureStore.Persistence;
 using FurnitureStore.WebApi.Middlewares;
@@ -88,8 +89,15 @@ try
         {
             var context = serviceProvider
                 .GetRequiredService<FurnitureStoreDbContext>();
-
             DbInitializer.Initialize(context);
+
+            var userManager = scope.ServiceProvider
+                .GetRequiredService<UserManager<User>>();
+            var rolesManager = scope.ServiceProvider
+                .GetRequiredService<RoleManager<IdentityRole<long>>>();
+            var jwtGenerator = scope.ServiceProvider
+                .GetRequiredService<IJwtGenerator>();
+            await RoleInitializer.InitializerAsync(userManager, rolesManager, jwtGenerator);
         }
         catch (Exception e)
         {

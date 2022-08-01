@@ -62,6 +62,6 @@ public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, A
             Balance = user.Balance,
             Token = _jwtGenerator.CreateToken(user),
             RefreshToken = user.RefreshToken
-        };;
+        };
     }
 }
