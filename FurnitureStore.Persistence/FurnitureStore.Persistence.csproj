@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FurnitureStore.Application\FurnitureStore.Application.csproj" />
+    <ProjectReference Include="..\FurnitureStore.Auth\FurnitureStore.Auth.csproj" />
   </ItemGroup>
 
 </Project>
