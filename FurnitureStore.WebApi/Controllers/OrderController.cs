@@ -38,7 +38,7 @@ public class OrderController : BaseController
     [HttpGet("get-all")]
     public async Task<ActionResult<IEnumerable<OrderDto>>> GetAll()
     {
-        var query = new GetOrderListQuery() { UserId = UserId };
+        var query = new GetOrderListQuery { UserId = UserId };
         var vm = await Mediator.Send(query);
 
         return Ok(vm.Orders);
@@ -58,7 +58,7 @@ public class OrderController : BaseController
     [HttpDelete("delete/{id:long}")]
     public async Task<ActionResult> Delete(long id)
     {
-        var command = new DeleteOrderCommand()
+        var command = new DeleteOrderCommand
         {
             OrderId = id,
             UserId = UserId,
@@ -84,7 +84,7 @@ public class OrderController : BaseController
     [HttpPost("buy/{id:long}")]
     public async Task<ActionResult> Buy(long id)
     {
-        var command = new BuyOrderCommand()
+        var command = new BuyOrderCommand
         {
             OrderId = id,
             UserId = UserId
