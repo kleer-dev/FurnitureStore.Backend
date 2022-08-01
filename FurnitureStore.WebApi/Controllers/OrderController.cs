@@ -22,6 +22,7 @@ public class OrderController : BaseController
         _mapper = mapper;
     }
 
+    [ResponseCache(CacheProfileName = "QueryCache")]
     [HttpGet("get/{id:long}")]
     public async Task<ActionResult<OrderVm>> Get(long id)
     {
@@ -35,6 +36,7 @@ public class OrderController : BaseController
         return Ok(order);
     }
 
+    [ResponseCache(CacheProfileName = "QueryCache")]
     [HttpGet("get-all")]
     public async Task<ActionResult<IEnumerable<OrderDto>>> GetAll()
     {
