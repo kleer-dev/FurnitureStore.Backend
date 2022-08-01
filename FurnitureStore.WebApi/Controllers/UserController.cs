@@ -3,6 +3,7 @@ using FurnitureStore.Application.CommandsQueries.User.Queries.Get;
 using FurnitureStore.Auth.Login;
 using FurnitureStore.Auth.Registration;
 using FurnitureStore.Auth;
+using FurnitureStore.Auth.RefreshToken;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,14 +14,14 @@ public class UserController : BaseController
 {
     [AllowAnonymous]
     [HttpPost("login")]
-    public async Task<ActionResult<UserDto>> LoginAsync([FromBody] LoginQuery query)
+    public async Task<ActionResult<AuthResponse>> LoginAsync([FromBody] LoginQuery query)
     {
         return await Mediator.Send(query);
     }
 
     [AllowAnonymous]
     [HttpPost("registration")]
-    public async Task<ActionResult<UserDto>> Registration([FromBody] RegistrationCommand command)
+    public async Task<ActionResult<AuthResponse>> Registration([FromBody] RegistrationCommand command)
     {
         return await Mediator.Send(command);
     }
@@ -48,5 +49,14 @@ public class UserController : BaseController
         var moneyAmount = await Mediator.Send(command);
         
         return Ok(moneyAmount);
+    }
+
+    [AllowAnonymous]
+    [HttpPost("refresh-token")]
+    public async Task<ActionResult<AuthResponse>> RefreshToken([FromBody] RefreshTokenCommand command)
+    {
+        var response = await Mediator.Send(command);
+        
+        return Ok(response);
     }
 }
