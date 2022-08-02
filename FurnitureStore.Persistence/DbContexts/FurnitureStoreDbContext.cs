@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace FurnitureStore.Persistence;
+namespace FurnitureStore.Persistence.DbContexts;
 
 public class FurnitureStoreDbContext : IdentityDbContext<User, IdentityRole<long>, long>,
     IFurnitureStoreDbContext

@@ -1,9 +1,8 @@
-﻿using FurnitureStore.Auth;
-using FurnitureStore.Auth.Interfaces;
+﻿using FurnitureStore.Auth.Interfaces;
 using FurnitureStore.Domain;
 using Microsoft.AspNetCore.Identity;
 
-namespace FurnitureStore.Persistence;
+namespace FurnitureStore.Persistence.Initializers;
 
 public class RoleInitializer
 {

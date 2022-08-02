@@ -6,6 +6,8 @@ using FurnitureStore.Auth;
 using FurnitureStore.Auth.Interfaces;
 using FurnitureStore.Domain;
 using FurnitureStore.Persistence;
+using FurnitureStore.Persistence.DbContexts;
+using FurnitureStore.Persistence.Initializers;
 using FurnitureStore.WebApi.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -90,6 +92,10 @@ try
             var context = serviceProvider
                 .GetRequiredService<FurnitureStoreDbContext>();
             DbInitializer.Initialize(context);
+            
+            var logContext = serviceProvider
+                .GetRequiredService<LogDbContext>();
+            LogDbInitializer.Initialize(logContext);
 
             var userManager = scope.ServiceProvider
                 .GetRequiredService<UserManager<User>>();

@@ -1,4 +1,6 @@
-﻿namespace FurnitureStore.Persistence;
+﻿using FurnitureStore.Persistence.DbContexts;
+
+namespace FurnitureStore.Persistence.Initializers;
 
 public class DbInitializer
 {
