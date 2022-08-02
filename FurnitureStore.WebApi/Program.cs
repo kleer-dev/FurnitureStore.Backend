@@ -17,9 +17,10 @@ using NLog;
 using NLog.Web;
 
 var logger = NLog.LogManager.Setup()
-    .LoadConfigurationFromAppSettings()
+    .LoadConfigurationFromFile("nlog.config", false)
     .GetCurrentClassLogger();
-
+logger.Debug("Init main");
+    
 try
 {
     var builder = WebApplication.CreateBuilder(args);
