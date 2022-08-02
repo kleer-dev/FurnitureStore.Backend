@@ -5,7 +5,7 @@ namespace FurnitureStore.Application.Interfaces;
 
 public interface ILogDbContext
 {
-    DbSet<Logs> Logs { get; set; }
+    DbSet<Log> Logs { get; set; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

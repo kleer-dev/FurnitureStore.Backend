@@ -1,6 +1,6 @@
 ﻿namespace FurnitureStore.Domain;
 
-public class Logs
+public class Log
 {
     public int Id { get; set; }
     public string Application { get; set; }

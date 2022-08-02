@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FurnitureStore.Persistence.EntityTypeConfigurations;
 
-public class LogsConfiguration : IEntityTypeConfiguration<Logs>
+public class LogsConfiguration : IEntityTypeConfiguration<Log>
 {
-    public void Configure(EntityTypeBuilder<Logs> builder)
+    public void Configure(EntityTypeBuilder<Log> builder)
     {
         builder.HasKey(l => l.Id);
         builder.HasIndex(l => l.Id)
@@ -29,22 +29,22 @@ public class LogsConfiguration : IEntityTypeConfiguration<Logs>
         
         builder.Property(l => l.Message)
             .IsRequired()
-            .HasMaxLength(8000)
+            .HasMaxLength(4000)
             .HasColumnName("message");
         
         builder.Property(l => l.Logger)
             .IsRequired()
-            .HasMaxLength(8000)
+            .HasMaxLength(4000)
             .HasColumnName("logger");
         
         builder.Property(l => l.Callsite)
             .IsRequired()
-            .HasMaxLength(8000)
+            .HasMaxLength(4000)
             .HasColumnName("callsite");
         
         builder.Property(l => l.Exception)
             .IsRequired()
-            .HasMaxLength(8000)
+            .HasMaxLength(4000)
             .HasColumnName("exception");
     }
 }

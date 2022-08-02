@@ -7,7 +7,7 @@ namespace FurnitureStore.Persistence.DbContexts;
 
 public class LogDbContext : DbContext, ILogDbContext
 {
-    public DbSet<Logs> Logs { get; set; }
+    public DbSet<Log> Logs { get; set; }
 
     public LogDbContext(DbContextOptions<LogDbContext> options)
         : base(options) { }
@@ -15,7 +15,7 @@ public class LogDbContext : DbContext, ILogDbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfiguration(new LogsConfiguration());
-        builder.Entity<Logs>().ToTable("logs");
+        builder.Entity<Log>().ToTable("logs");
         
         base.OnModelCreating(builder);
     }
