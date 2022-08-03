@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FurnitureStore.Persistence.EntityTypeConfigurations;
 
-public class LogsConfiguration : IEntityTypeConfiguration<Log>
+public class LogConfiguration : IEntityTypeConfiguration<Log>
 {
     public void Configure(EntityTypeBuilder<Log> builder)
     {

@@ -24,11 +24,8 @@ public static class DependencyInjection
             options.UseNpgsql(logConnectionString);
         });
 
-        services.AddScoped<IFurnitureStoreDbContext>(provider => 
-            provider.GetService<FurnitureStoreDbContext>()!);
-        
-        services.AddScoped<ILogDbContext>(provider => 
-            provider.GetService<LogDbContext>()!);
+        services.AddScoped<IFurnitureStoreDbContext, FurnitureStoreDbContext>();
+        services.AddScoped<LogDbContext>();
 
         return services;
     }

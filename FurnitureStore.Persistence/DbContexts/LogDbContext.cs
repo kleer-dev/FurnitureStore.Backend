@@ -14,7 +14,7 @@ public class LogDbContext : DbContext, ILogDbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.ApplyConfiguration(new LogsConfiguration());
+        builder.ApplyConfiguration(new LogConfiguration());
         builder.Entity<Log>().ToTable("logs");
         
         base.OnModelCreating(builder);
